@@ -1,0 +1,86 @@
+// nib is a powerful lib for stylus that provides cross-browser css3 mixins.
+// No more vendor prefixes. http://visionmedia.github.com/nib/
+@import 'nib'
+
+font-size = 12px
+
+text-color = #444
+grey-text-color = lighten(text-color, 30%)
+ss_orange = #F36C21
+
+toplevel-thumb-size = 35px
+child-thumb-size = 21px
+
+.comments
+  margin: 30px 400px
+  width: 600px
+  font font-size Arial, sans-serif
+  color: text-color
+  
+.comment
+  display: block
+  min-width: 200px
+  margin: 1.5em 0
+  padding-left: 35px
+
+  > .img-wrapper
+    display: block
+    margin-left: -1 * child-thumb-size
+    border-bottom: 15px solid #FFF
+    border-right: 1px solid #FFF
+    position: absolute
+    > img
+      border-radius: 5px
+      width: child-thumb-size
+
+  .delete-post
+    visibility: hidden
+    float: right
+    height: 10px
+    width: 8px
+    margin: 3px 5px 0 0
+    cursor: pointer
+    background-image: url('../images/icon-close-dark.png')
+    &:hover
+      background-position-y 10px
+
+  .content
+    &:hover
+      .delete-post
+        visibility: visible
+    border-left: 1px solid #DDD
+    padding-left: 15px
+    display: block
+    .author-name
+      font-weight: bold
+    .author-qualification
+      color: grey-text-color
+      font-style: italic
+      margin-left: .5em
+
+    p
+      margin: .5em 1em .5em 0
+    .timestamp a
+      text-decoration: none
+      color: grey-text-color
+    .reply-link
+      cursor: pointer
+      color: ss_orange
+    .middot
+      color: grey-text-color
+      margin: 0 .3em
+
+    .reply-form
+      display: block
+      textarea
+        width: 80%
+        margin-top: 1em
+      button
+        vertical-align: bottom
+
+// top level img is bigger
+.comments > .comment > .img-wrapper
+  margin-left: -1 * toplevel-thumb-size - 1
+  border-width: 0 2px 15px 2em
+  > img
+    width: toplevel-thumb-size
