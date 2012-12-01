@@ -4,5 +4,7 @@ Comment = require 'models/comment'
 module.exports = class CommentsCollection extends Collection
   model: Comment
 
-  url: => "#{@apiRoot}/comment"
+  url: -> "#{@apiRoot}"
 
+  parse: (response) ->
+    response.comments

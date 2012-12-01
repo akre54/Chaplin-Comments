@@ -1,8 +1,6 @@
 Chaplin = require 'chaplin'
 mediator = require 'mediator'
 routes = require 'routes'
-SessionController = require 'controllers/session_controller'
-HeaderController = require 'controllers/header_controller'
 Layout = require 'views/layout'
 
 # The application object
@@ -18,9 +16,6 @@ module.exports = class Application extends Chaplin.Application
     @initDispatcher()
     @initLayout()
     @initMediator()
-
-    # Application-specific scaffold
-    @initControllers()
 
     # Register all routes and start routing
     @initRouter routes
@@ -40,18 +35,6 @@ module.exports = class Application extends Chaplin.Application
     # no features to the standard Chaplin Layout, it’s an empty placeholder.
     @layout = new Layout {@title}
 
-  # Instantiate common controllers
-  # ------------------------------
-  initControllers: ->
-    # These controllers are active during the whole application runtime.
-    # You don’t need to instantiate all controllers here, only special
-    # controllers which do not to respond to routes. They may govern models
-    # and views which are needed the whole time, for example header, footer
-    # or navigation views.
-    # e.g. new NavigationController()
-    new SessionController()
-    new HeaderController()
-
   # Handle case when route not found
   initRouter: (routes) ->
     unless super routes
@@ -60,7 +43,7 @@ module.exports = class Application extends Chaplin.Application
   # Create additional mediator properties
   # -------------------------------------
   initMediator: ->
-    # Create a user property
     # Add additional application-specific properties and methods
+    
     # Seal the mediator
     Chaplin.mediator.seal()

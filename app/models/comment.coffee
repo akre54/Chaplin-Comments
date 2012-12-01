@@ -2,5 +2,7 @@ Model = require 'models/base/model'
 
 module.exports = class Comment extends Model
 
-  url: => if @id then "#{@apiRoot}/comment/#{@id}" else "#{@apiRoot}/comment"
+  url: -> "#{@apiRoot}"
 
+  parse: (response) ->
+    if @id then _(response.comments).where {@id} else response

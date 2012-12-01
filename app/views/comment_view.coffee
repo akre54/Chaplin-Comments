@@ -21,7 +21,6 @@ module.exports = class CommentView extends View
 
     setInterval @updateTimestamp, (Math.floor(Math.random() * 35) + 5) * 1000
 
-  # only for demo! But cool, right? :D
   updateTimestamp: =>
     return if @disposed
     newTimeAgo = Handlebars.helpers.time_ago @model.get 'create_time'
@@ -54,15 +53,16 @@ module.exports = class CommentView extends View
     evt.preventDefault()
     evt.stopPropagation()
 
-    newPost = new Comment({
+    newPost = new Comment
+      id: _.uniqueId(300)
       author:
         id: 23
-        qualification: "Abassador to Space"
+        profile_img_url: 'http://i.imgur.com/1NKhJb.jpg'
+        qualification: 'Abassador to Space'
       content: $(evt.target).prev().val()
       parent: @model.id
       create_time: (new Date()).getTime()
-    })
-    newPost.save newPost.attributes,
-      success: => @model.collection.add newPost
+    newPost.save()
+    @model.collection.add newPost
     @closeReply()
 

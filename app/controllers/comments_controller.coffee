@@ -10,15 +10,10 @@ module.exports = class CommentsController extends Controller
 
   index: ->
     @collection = new CommentsCollection()
-    @view = new CommentsCollectionView collection: @collection
-    @collection.fetch
-      success: =>
-        @view.render()
+    @view = new CommentsCollectionView {@collection}
+    @collection.fetch()
 
-   show: (params) ->
-     @model = new Comment id: params.id
-     @model.fetch
-       success: =>
-         @view = new CommentView model: @model, solo: true
-         @view.render()
-
+  show: (params) ->
+    @model = new Comment id: parseInt params.id, 10
+    @view = new CommentView {@model, solo: true}
+    @model.fetch()

@@ -1,7 +1,5 @@
 config = {api: {}}
 
-config.api.url = 'http://localhost/ss_comments_backend/index.php'
-
-production = yes
+config.api.url = '/comments.json'
 
 module.exports = config

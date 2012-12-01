@@ -3,9 +3,6 @@ utils = require 'lib/utils'
 require 'lib/view_helper'
 
 module.exports = class View extends Chaplin.View
-  # Override Chaplin.View::initialize in order to make stuff work.
-  initialize: ->
-    super
 
   getTemplateData: ->
     Model = require 'models/base/model'
@@ -26,10 +23,6 @@ module.exports = class View extends Chaplin.View
       utils.beget serialize modelAttributes
     else
       {}
-
-    # If the model is a Deferred, add a flag to get the Deferred state
-    if @model and typeof @model.state is 'function'
-      templateData.resolved = @model.state() is 'resolved'
 
     templateData
 
