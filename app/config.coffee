@@ -1,6 +1,6 @@
 config = {api: {}}
 
-production = no
+production = yes
 
 config.api.url =
   if production
