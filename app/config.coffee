@@ -1,5 +1,5 @@
 config = {api: {}}
 
-config.api.url = '/comments.json'
+config.api.url = 'http://ss-comments-api.herokuapp.com'
 
 module.exports = config

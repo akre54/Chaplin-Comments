@@ -13,7 +13,11 @@ module.exports = class CommentView extends View
     super
 
     parent = @model.get 'parent'
-    @container = if parent? and !options.solo then "#comment-#{parent} > .children" else "#page-container"
+    @container =
+      if parent? and !options.solo
+        "#comment-#{parent} > .children"
+      else
+        "#page-container"
 
     @delegate 'click', "##{@id()} > .content .delete-post", @deletePost
     @delegate 'click', "##{@id()} > .content .reply-link", @openReply
@@ -23,7 +27,7 @@ module.exports = class CommentView extends View
 
   updateTimestamp: =>
     return if @disposed
-    newTimeAgo = Handlebars.helpers.time_ago @model.get 'create_time'
+    newTimeAgo = Handlebars.helpers.time_ago @model.get 'created_at'
     @$("> .content .timestamp").text newTimeAgo
 
   deletePost: =>
@@ -61,7 +65,7 @@ module.exports = class CommentView extends View
         qualification: 'Abassador to Space'
       content: $(evt.target).prev().val()
       parent: @model.id
-      create_time: (new Date()).getTime()
+      created_at: (new Date()).getTime()
     newPost.save()
     @model.collection.add newPost
     @closeReply()

@@ -14,6 +14,7 @@ module.exports = class CommentsController extends Controller
     @collection.fetch()
 
   show: (params) ->
-    @model = new Comment id: parseInt params.id, 10
+    params.id = parseInt params.id, 10
+    @model = new Comment id: params.id
     @view = new CommentView {@model, solo: true}
     @model.fetch()
