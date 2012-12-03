@@ -5,6 +5,3 @@ module.exports = class CommentsCollection extends Collection
   model: Comment
 
   url: -> "#{@apiRoot}/comments"
-
-  parse: (response) ->
-    response.comments

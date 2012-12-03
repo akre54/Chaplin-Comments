@@ -9,21 +9,26 @@ module.exports = class CommentView extends View
   id: => "comment-#{@model.id}"
   tagName: "li"
 
+  # pass `solo = true` to options if showing only a single comment
   initialize: (options) =>
-    super
-
     parent = @model.get 'parent'
     @container =
       if parent? and !options.solo
         "#comment-#{parent} > .children"
       else
-        "#page-container"
+        ".comments"
+    super
 
-    @delegate 'click', "##{@id()} > .content .delete-post", @deletePost
-    @delegate 'click', "##{@id()} > .content .reply-link", @openReply
-    @delegate 'click', "##{@id()} > .content button", @submitReply
-
+  afterRender: ->
+    super
+    @delegateEvents()
     setInterval @updateTimestamp, (Math.floor(Math.random() * 35) + 5) * 1000
+
+  delegateEvents: ->
+    @undelegate()
+    @delegate 'click', "> .content .delete-post", @deletePost
+    @delegate 'click', "> .content .reply-link", @openReply
+    @delegate 'click', "> .content button", @submitReply
 
   updateTimestamp: =>
     return if @disposed
@@ -58,8 +63,8 @@ module.exports = class CommentView extends View
     evt.stopPropagation()
 
     newPost = new Comment
-      id: _.uniqueId(300)
-      author:
+      author: # imagine this were on a app-wide user model
+        name: 'Michael Jordan'
         id: 23
         profile_img_url: 'http://i.imgur.com/1NKhJb.jpg'
         qualification: 'Abassador to Space'
